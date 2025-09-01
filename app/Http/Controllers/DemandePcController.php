@@ -12,7 +12,8 @@ class DemandePcController extends Controller
      */
     public function index()
     {
-        //
+        $demandepc =  Demande_Pc::paginate(15); // ou avec pagination, filtres, etc.
+        return view('demande.index', compact('demandepc'));
     }
 
     /**
@@ -38,6 +39,8 @@ class DemandePcController extends Controller
             'proprietaire' => 'nullable|string',
             'titre' => 'nullable|string',
             'immatriculation_terrain' => 'nullable|string',
+            'x_coord' => 'nullable|numeric',
+            'y_coord' => 'nullable|numeric',
             'prescription_urbanisme' => 'nullable|string',
             'reference' => 'nullable|string',
             'superficie_m2' => 'nullable|numeric',
@@ -64,9 +67,10 @@ class DemandePcController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Demande_Pc $demande_Pc)
+    public function show(Demande_Pc $d)
     {
-        //
+        $demandePc = $d;
+        return view('demande.show', compact('demandePc'));
     }
 
     /**
@@ -102,7 +106,7 @@ class DemandePcController extends Controller
 
         return view('stats.service_envoyeur', compact('stats'));
     }
-/*************  ✨ Windsurf Command 🌟  *************/
+    /*************  ✨ Windsurf Command 🌟  *************/
     public function serviceCategorie()
     {
         $categories = Demande_Pc::select('categorie')
@@ -112,5 +116,5 @@ class DemandePcController extends Controller
 
         return view('stats.service_categorie', compact('categories'));
     }
-/*******  1fcabaff-b3e8-4b34-b42c-5496b10fa497  *******/
+    /*******  1fcabaff-b3e8-4b34-b42c-5496b10fa497  *******/
 }

@@ -25,3 +25,6 @@ Route::get('/stats/service-categorie', [DemandePcController::class, 'serviceCate
 
 Route::get('/demande/create', [DemandePcController::class, 'create'])->name('demande.create');
 Route::post('/demande', [DemandePcController::class, 'store'])->name('demande.store');
+Route::get('/demande-pc', [DemandePcController::class, 'index'])->name('demande_pc.index');
+Route::get('/demande-pc/{demandePc}', [DemandePcController::class, 'show'])->name('demande_pc.show');
+

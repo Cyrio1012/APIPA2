@@ -18,6 +18,8 @@ class Demande_Pc extends Model
         'proprietaire',
         'titre',
         'immatriculation_terrain',
+        'x_coord',
+        'y_coord',
         'prescription_urbanisme',
         'reference',
         'superficie_m2',
