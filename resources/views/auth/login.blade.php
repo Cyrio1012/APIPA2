@@ -1,11 +1,48 @@
-<!-- resources/views/auth/login.blade.php -->
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light d-flex align-items-center" style="height: 100vh;">
 
-@section('content')
-    <form action="{{ route('login') }}" method="POST" class="max-w-md mx-auto bg-white p-6 rounded shadow">
-        @csrf
-        <x-input name="email" type="email" label="Email" />
-        <x-input name="password" type="password" label="Mot de passe" />
-        <button class="bg-blue-500 text-white px-4 py-2 rounded">Se connecter</button>
-    </form>
-@endsection
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title mb-4 text-center">Login</h3>
+            
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul class="mb-0">
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+              @csrf
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

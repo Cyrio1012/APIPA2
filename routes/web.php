@@ -20,5 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
-Route::get('/stats/service-envoyeur', [DemandePcController::class, 'serviceEnvoyeurStats']);
-Route::get('/stats/service-categorie', [DemandePcController::class, 'serviceCategorie']);
+Route::get('/stats/service-envoyeur', [DemandePcController::class, 'serviceEnvoyeurStats'])->name('service-envoyeur');
+Route::get('/stats/service-categorie', [DemandePcController::class, 'serviceCategorie'])->name('service-categorie');
+
+Route::get('/demande/create', [DemandePcController::class, 'create'])->name('demande.create');
+Route::post('/demande', [DemandePcController::class, 'store'])->name('demande.store');
