@@ -70,6 +70,8 @@ class DemandePcController extends Controller
     public function show(Demande_Pc $d)
     {
         $demandePc = $d;
+        //Demande_Pc::find($d->id);
+        // dd($d);
         return view('demande.show', compact('demandePc'));
     }
 
