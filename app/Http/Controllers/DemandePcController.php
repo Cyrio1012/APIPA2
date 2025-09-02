@@ -58,7 +58,7 @@ class DemandePcController extends Controller
             'categorie' => 'required|string|in:Regulier,Irregulier,Autre',
             'situation_pc' => 'required|string|in:En cours d\'etudes,Traité,Non traité',
         ]);
-
+// dd($validated);
         Demande_Pc::create($validated);
 
         return redirect()->back()->with('success', 'Demande enregistrée avec succès.');

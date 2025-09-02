@@ -8,10 +8,11 @@
             <i class="fas fa-search position-absolute" style="top: 10px; left: 10px;"></i>
             <input type="text" class="form-control ps-4" id="searchInput"
                 placeholder="Rechercher par demandeur, adresse, commune, etc.">
+                <a href="{{ route('demande.create') }}" class="btn btn-success"> Nouvelle Demande</a>
         </div>
     </div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="demandeTable" >
         <thead>
             <tr>
                 <th>Année</th>
@@ -65,4 +66,13 @@
             });
         });
     </script>
+@endsection
+@section('scripts')
+<script>
+
+    $('#demandeTable').bootstrapTable({
+    search: true,
+    sidePagination: 'client',
+});
+</script>
 @endsection

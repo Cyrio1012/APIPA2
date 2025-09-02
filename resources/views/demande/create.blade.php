@@ -17,6 +17,32 @@
             box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
         }
     </style>
+@error('annee') <small class="text-danger">{{ $message }}</small> @enderror
+@error('demandeur') <small class="text-danger">{{ $message }}</small> @enderror
+@error('adresse') <small class="text-danger">{{ $message }}</small> @enderror
+@error('localisation') <small class="text-danger">{{ $message }}</small> @enderror
+@error('commune') <small class="text-danger">{{ $message }}</small> @enderror
+@error('proprietaire') <small class="text-danger">{{ $message }}</small> @enderror
+@error('titre') <small class="text-danger">{{ $message }}</small> @enderror
+@error('immatriculation_terrain') <small class="text-danger">{{ $message }}</small> @enderror
+@error('x_coord') <small class="text-danger">{{ $message }}</small> @enderror
+@error('y_coord') <small class="text-danger">{{ $message }}</small> @enderror
+@error('prescription_urbanisme') <small class="text-danger">{{ $message }}</small> @enderror
+@error('reference') <small class="text-danger">{{ $message }}</small> @enderror
+@error('superficie_m2') <small class="text-danger">{{ $message }}</small> @enderror
+@error('superficie_demandee_m2') <small class="text-danger">{{ $message }}</small> @enderror
+@error('avis_paiement') <small class="text-danger">{{ $message }}</small> @enderror
+@error('montant_redevance') <small class="text-danger">{{ $message }}</small> @enderror
+@error('situation_redevance') <small class="text-danger">{{ $message }}</small> @enderror
+@error('service_envoyeur') <small class="text-danger">{{ $message }}</small> @enderror
+@error('date_arrivee_apipa') <small class="text-danger">{{ $message }}</small> @enderror
+@error('date_commission_apipa') <small class="text-danger">{{ $message }}</small> @enderror
+@error('avis_commission_descente') <small class="text-danger">{{ $message }}</small> @enderror
+@error('observation_commission') <small class="text-danger">{{ $message }}</small> @enderror
+@error('avis_definitif') <small class="text-danger">{{ $message }}</small> @enderror
+@error('date_definitive') <small class="text-danger">{{ $message }}</small> @enderror
+@error('categorie') <small class="text-danger">{{ $message }}</small> @enderror
+@error('situation_pc') <small class="text-danger">{{ $message }}</small> @enderror
 
     <div class="d-flex flex-column" style="height: 100%; overflow-y: auto; padding: 2rem;">
         <div class="container" style="max-width: 1000px;">
