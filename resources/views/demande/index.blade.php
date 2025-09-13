@@ -8,11 +8,11 @@
             <i class="fas fa-search position-absolute" style="top: 10px; left: 10px;"></i>
             <input type="text" class="form-control ps-4" id="searchInput"
                 placeholder="Rechercher par demandeur, adresse, commune, etc.">
-                <a href="{{ route('demande.create') }}" class="btn btn-success"> Nouvelle Demande</a>
+            <a href="{{ route('demande.create') }}" class="btn btn-success"> Nouvelle Demande</a>
         </div>
     </div>
 
-    <table class="table table-bordered" id="demandeTable" >
+    <table class="table table-bordered" id="demandeTable">
         <thead>
             <tr>
                 <th>Année</th>
@@ -30,19 +30,20 @@
         </thead>
         <tbody id="demandeTable">
             @foreach ($demandepc as $d)
-                <tr class="demande-row" onclick="window.location='{{ route('demande_pc.show', $d) }}'" style="cursor:pointer;">
-                        <td>{{ $d->annee }}</td>
-                        <td>{{ $d->demandeur }}</td>
-                        <td>{{ $d->adresse }}</td>
-                        <td>{{ $d->localisation }}</td>
-                        <td>{{ $d->commune }}</td>
-                        <td>{{ $d->proprietaire }}</td>
-                        <td>{{ $d->service_envoyeur }}</td>
-                        <td>{{ $d->date_arrivee_apipa }}</td>
-                        <td>{{ $d->avis_definitif }}</td>
-                        <td>{{ $d->categorie }}</td>
-                        <td>{{ $d->situation_pc }}</td>
-                    </a>
+                <tr class="demande-row" onclick="window.location='{{ route('demande_pc.show', $d->id) }}'"
+                    style="cursor:pointer;">
+                    <td>{{ $d->annee }}</td>
+                    <td>{{ $d->demandeur }}</td>
+                    <td>{{ $d->adresse }}</td>
+                    <td>{{ $d->localisation }}</td>
+                    <td>{{ $d->commune }}</td>
+                    <td>{{ $d->proprietaire }}</td>
+                    <td>{{ $d->service_envoyeur }}</td>
+                    <td>{{ $d->date_arrivee_apipa }}</td>
+                    <td>{{ $d->avis_definitif }}</td>
+                    <td>{{ $d->categorie }}</td>
+                    <td>{{ $d->situation_pc }}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>
@@ -68,11 +69,10 @@
     </script>
 @endsection
 @section('scripts')
-<script>
-
-    $('#demandeTable').bootstrapTable({
-    search: true,
-    sidePagination: 'client',
-});
-</script>
+    <script>
+        $('#demandeTable').bootstrapTable({
+            search: true,
+            sidePagination: 'client',
+        });
+    </script>
 @endsection
