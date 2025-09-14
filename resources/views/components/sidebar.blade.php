@@ -16,6 +16,9 @@
                 <a href="{{ route('demande_pc.index') }}">Demande PC</a>
             </li>
             <li>
+                <a href="{{ route('actions.index') }}">Actions</a>
+            </li>
+            <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Audits</a>
             </li>
             <li>

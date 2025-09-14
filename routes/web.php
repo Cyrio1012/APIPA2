@@ -30,3 +30,5 @@ Route::get('/demande-pc/{d}', [DemandePcController::class, 'show'])->name('deman
 
 Route::resource('actions', ActionController::class);
 
+Route::get('/actions/geojson', [ActionController::class, 'geojson'])->name('actions.geojson');
+

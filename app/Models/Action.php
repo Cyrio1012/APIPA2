@@ -26,5 +26,6 @@ class Action extends Model
         'actions_terrain' => 'array',
         'geom' => 'array', // GeoJSON
     ];
+    
 
 }

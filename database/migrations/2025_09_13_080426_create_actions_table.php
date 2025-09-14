@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('destination')->nullable();
             $table->float('montant_amende')->nullable();
             $table->text('infractions_constatees')->nullable();
+            $table->string('situation_en_cours')->nullable();
             $table->timestamps();
         });
     }

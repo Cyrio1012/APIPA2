@@ -13,7 +13,43 @@ class ActionController extends Controller
     public function index()
     {
         //
-        return view('actions.create');
+        return view('actions.index');
+    }
+    public function geojson()
+    {
+        $colors = [
+            "Les Propriétaires  ne se sont pas manifestés" => "#6c757d",
+            "AP  emis à la propriétaire" => "#007bff",
+            "Préparation  AP" => "#17a2b8",
+            "Construction sur canal, Digue , a coté  de station de pompage, occupation emprise" => "#dc3545",
+            "FT  de convocation attente complément des dossiers" => "#ffc107",
+            "convocation et mise en demeure pour paiement" => "#fd7e14",
+            "Projet d’arrêté de scellage" => "#6610f2",
+            "Dossier régularisé,amende soldé, paiement encours" => "#28a745"
+        ];
+
+        $actions = Action::whereNotNull('geom')->get();
+
+        $features = $actions->map(function ($action) use ($colors) {
+            if (!is_array($action->geom)) return null;
+
+            return [
+                'type' => 'Feature',
+                'geometry' => $action->geom,
+                'properties' => [
+                    'numero_pv' => $action->numero_pv,
+                    'proprietaire' => $action->proprietaire,
+                    'commune' => $action->commune,
+                    'situation' => $action->situation_en_cours,
+                    'color' => $colors[$action->situation_en_cours] ?? '#000000'
+                ]
+            ];
+        })->filter(); // retire les null
+
+        return response()->json([
+            'type' => 'FeatureCollection',
+            'features' => $features->values()
+        ]);
     }
 
     /**
@@ -21,7 +57,7 @@ class ActionController extends Controller
      */
     public function create()
     {
-        //
+        return view('actions.create');
     }
 
     /**

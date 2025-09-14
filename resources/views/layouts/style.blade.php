@@ -12010,4 +12010,7 @@
     .subscribe-form .form-control {
         background: #5356b1;
     }
+    .leaflet-touch .leaflet-control-attribution {
+        display: none !important;
+    }
 </style>
