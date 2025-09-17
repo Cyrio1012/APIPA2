@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Action;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ActionController extends Controller
 {
@@ -15,41 +16,65 @@ class ActionController extends Controller
         //
         return view('actions.index');
     }
-    public function geojson()
+
+
+    public function getCentroid(array $polygon): array
     {
-        $colors = [
-            "Les Propriétaires  ne se sont pas manifestés" => "#6c757d",
-            "AP  emis à la propriétaire" => "#007bff",
-            "Préparation  AP" => "#17a2b8",
-            "Construction sur canal, Digue , a coté  de station de pompage, occupation emprise" => "#dc3545",
-            "FT  de convocation attente complément des dossiers" => "#ffc107",
-            "convocation et mise en demeure pour paiement" => "#fd7e14",
-            "Projet d’arrêté de scellage" => "#6610f2",
-            "Dossier régularisé,amende soldé, paiement encours" => "#28a745"
-        ];
+        $coords = Arr::get($polygon, 'coordinates.0', []);
+        $x = $y = 0;
+        $count = count($coords);
 
-        $actions = Action::whereNotNull('geom')->get();
+        foreach ($coords as $coord) {
+            $x += $coord[0];
+            $y += $coord[1];
+        }
 
-        $features = $actions->map(function ($action) use ($colors) {
-            if (!is_array($action->geom)) return null;
+        return [$x / $count, $y / $count];
+    }
 
-            return [
-                'type' => 'Feature',
-                'geometry' => $action->geom,
-                'properties' => [
-                    'numero_pv' => $action->numero_pv,
-                    'proprietaire' => $action->proprietaire,
-                    'commune' => $action->commune,
-                    'situation' => $action->situation_en_cours,
-                    'color' => $colors[$action->situation_en_cours] ?? '#000000'
-                ]
-            ];
-        })->filter(); // retire les null
+    public function geojson(Request $request)
+    {
+        try {
+            $actions = \App\Models\Action::whereNotNull('geom')->get();
 
-        return response()->json([
-            'type' => 'FeatureCollection',
-            'features' => $features->values()
-        ]);
+            $features = $actions->map(function ($action) {
+                $geom = is_string($action->geom) ? json_decode($action->geom, true) : $action->geom;
+
+                if (!is_array($geom) || !isset($geom['type']) || !isset($geom['coordinates'])) {
+                    return null;
+                }
+
+                $center = $this->getCentroid($geom);
+
+                return [
+                    'type' => 'Feature',
+                    'geometry' => $geom,
+                    'properties' => [
+                        'numero_pv' => $action->numero_pv,
+                        'proprietaire' => $action->proprietaire,
+                        'commune' => $action->commune,
+                        'situation' => $action->situation_en_cours,
+                        'surface' => (float) $action->superficie_m2,
+                        'amende' => (float) $action->montant_amende,
+                        'color' => $colors[$action->situation_en_cours] ?? '#000000',
+                        'center' => $center
+                    ]
+                ];
+            })->filter()->values();
+
+            return response()->json([
+                'type' => 'FeatureCollection',
+                'features' => $features
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur serveur'], 500);
+        }
+    }
+
+
+    public function map()
+    {
+        return view('actions.map');
     }
 
     /**

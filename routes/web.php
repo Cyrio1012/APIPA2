@@ -28,7 +28,34 @@ Route::get('/demande-pc', [DemandePcController::class, 'index'])->name('demande_
 Route::get('/demande-pc/{d}', [DemandePcController::class, 'show'])->name('demande_pc.show');
 
 
-Route::resource('actions', ActionController::class);
+Route::get('/map', [ActionController::class, 'map'])->name('actions.map');
+
+// Route::get('/actions/geom', function () {
+//     $actions = \App\Models\Action::whereNotNull('geom')->get();
+    
+//     $features = $actions->map(function ($action) {
+//         $geom = is_string($action->geom) ? json_decode($action->geom, true) : $action->geom;
+
+//         return [
+//             'type' => 'Feature',
+//             'geometry' => $geom,
+//             'properties' => [
+//                 'numero_pv' => $action->numero_pv,
+//                 'proprietaire' => $action->proprietaire,
+//                 'commune' => $action->commune,
+//                 'surface' => $action->superficie_m2,
+//                 'amende' => $action->montant_amende
+//                 ]
+//             ];
+//     });
+    
+//     return response()->json([
+//         'type' => 'FeatureCollection',
+//         'features' => $features->filter()->values()
+//     ]);
+// });
+
 
 Route::get('/actions/geojson', [ActionController::class, 'geojson'])->name('actions.geojson');
 
+Route::resource('actions', ActionController::class);
