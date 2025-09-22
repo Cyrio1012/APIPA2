@@ -8,7 +8,8 @@ use App\Http\Controllers\DemandePcController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ActionController;
-
+use App\Http\Controllers\conv;
+use App\Http\Controllers\RemblaisController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -27,6 +28,7 @@ Route::post('/demande', [DemandePcController::class, 'store'])->name('demande.st
 Route::get('/demande-pc', [DemandePcController::class, 'index'])->name('demande_pc.index');
 Route::get('/demande-pc/{d}', [DemandePcController::class, 'show'])->name('demande_pc.show');
 
+Route::get('/rembconv', [conv::class, 'updateMiss']);
 
 Route::get('/map', [ActionController::class, 'map'])->name('actions.map');
 
@@ -59,3 +61,9 @@ Route::get('/map', [ActionController::class, 'map'])->name('actions.map');
 Route::get('/actions/geojson', [ActionController::class, 'geojson'])->name('actions.geojson');
 
 Route::resource('actions', ActionController::class);
+Route::get('/side', function () {
+    return view('layouts.side');
+});
+
+Route::get('/remblais/geojson', [RemblaisController::class, 'geojson'])->name('remblais.geojson');
+Route::get('/remblais/map', [RemblaisController::class, 'map'])->name('remblais.map');

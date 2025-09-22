@@ -48,9 +48,9 @@
 
             let layerGroup;
 
-            function createFontAwesomeMarker(color, iconClass = 'fa-map-marker-alt') {
+            function createFontAwesomeMarker( color = 'green', iconClass = 'fa-map-marker-alt') {
                 return L.divIcon({
-                    html: `<i class="fas ${iconClass}" style="color:${color}; font-size: 24px;"></i>`,
+                    html: `<i class="fas ${iconClass}" style="color:green; font-size: 24px;"></i>`,
                     iconSize: [24, 24],
                     className: 'leaflet-fa-icon'
                 });
@@ -81,6 +81,7 @@
                     <strong>Situation:</strong> ${props.situation}<br>
                     <strong>Surface:</strong> ${Number(props.surface)?.toFixed(2)} m²<br>
                     <strong>Amende:</strong> ${Number(props.amende)?.toLocaleString()} Ar
+                    at <a href="/actions/${props.id}">Voir Détails</a>
                 `;
                                 layer.bindPopup(popup);
 
